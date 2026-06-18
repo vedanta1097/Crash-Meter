@@ -177,8 +177,8 @@ export default function Home() {
   const [capeStatus, setCapeStatus] = useState<Status>("idle");
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
-  // A2: auto-calculated — inversion ended Mar 2026, safe after 18 months (Sep 2027)
-  const inversionEnd = new Date("2026-03-01");
+  // A2: auto-calculated — inversion ended Dec 2024, safe after 18 months (Jun 2026)
+  const inversionEnd = new Date("2024-12-01");
   inversionEnd.setMonth(inversionEnd.getMonth() + 18);
   const a2passed = new Date() >= inversionEnd;
 
@@ -438,7 +438,7 @@ export default function Home() {
                 <div
                   style={{ fontSize: 11, color: "var(--text3)", marginTop: 2 }}
                 >
-                  Inversi Mar 2026 → aman setelah Sep 2027
+                  Inversi Des 2024 → aman setelah Jun 2026
                 </div>
               </div>
               <div
