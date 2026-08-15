@@ -544,7 +544,6 @@ export default function Home() {
         }}
       >
         <p>Data: FRED (Federal Reserve) · Shiller CAPE (multpl.com)</p>
-        <p>Crashmeter v3 by Tomhardi</p>
       </div>
     </main>
   );
