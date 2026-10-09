@@ -2,7 +2,7 @@
 
 An automated market crash risk dashboard based on the Crashmeter v3 methodology — built with Next.js, fetching live data from FRED (Federal Reserve) and Shiller CAPE (multpl.com).
 
-> **Current score (as of May 2026): 2 / 4 — Waspada (Caution)**
+> **Current score (as of May 2026): 2 / 4 — Caution**
 
 ---
 
@@ -12,8 +12,8 @@ Crashmeter v3 is a systematic, quantitative framework to assess the risk of a sy
 
 | Score | Status                |
 | ----- | --------------------- |
-| 0–1   | ✅ Aman (Safe)        |
-| 2     | ⚠️ Waspada (Caution)  |
+| 0–1   | ✅ Safe                |
+| 2     | ⚠️ Caution             |
 | 3     | 🚨 Exit window begins |
 | 4     | 🔴 Critical           |
 
@@ -121,19 +121,19 @@ npm run dev
 # open http://localhost:3000
 ```
 
-## Deploy ke Vercel
+## Deploy to Vercel
 
-1. Push ke GitHub
-2. Import repo di vercel.com → New Project
-3. Tambah environment variable:
+1. Push to GitHub
+2. Import the repository at vercel.com → New Project
+3. Add an environment variable:
    - Key: `FRED_API_KEY`
-   - Value: (isi API key FRED kamu)
+   - Value: (your FRED API key)
 4. Deploy
 
 ## Data sources
 
-| Parameter              | Sumber     | Cache  |
+| Parameter              | Source     | Cache  |
 | ---------------------- | ---------- | ------ |
-| T10Y-3M Yield Curve    | FRED API   | 1 jam  |
-| HY OAS + Velocity 6bln | FRED API   | 1 jam  |
-| Shiller CAPE           | multpl.com | 24 jam |
+| T10Y-3M Yield Curve    | FRED API   | 1 hour |
+| HY OAS + 6-month Velocity | FRED API | 1 hour |
+| Shiller CAPE           | multpl.com | 24 hours |

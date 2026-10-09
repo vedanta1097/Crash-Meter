@@ -163,7 +163,7 @@ function Skeleton() {
 
 function fmtDate(d: string | null) {
   if (!d) return "—";
-  return new Date(d).toLocaleDateString("id-ID", {
+  return new Date(d).toLocaleDateString("en-US", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -228,25 +228,25 @@ export default function Home() {
   ];
 
   const statusMap = [
-    "✅ Aman",
-    "✅ Aman",
-    "⚠️ Waspada",
+    "✅ Safe",
+    "✅ Safe",
+    "⚠️ Caution",
     "🚨 Exit window",
     "🔴 Critical",
   ];
   const statusDesc = [
-    "Kondisi normal, tidak ada sinyal bahaya sistemik.",
-    "Kondisi normal, tidak ada sinyal bahaya sistemik.",
-    "Satu atau lebih parameter mulai menyala. Pantau lebih sering.",
-    "Pertimbangkan untuk mulai reduce position secara bertahap.",
-    "Risiko crash sistemik tinggi. Semua parameter aktif.",
+    "Normal conditions; no signs of systemic danger.",
+    "Normal conditions; no signs of systemic danger.",
+    "One or more parameters have been triggered. Monitor more frequently.",
+    "Consider reducing positions gradually.",
+    "High risk of a systemic crash. All parameters are active.",
   ];
 
   function t10y3mBadge(): { label: string; level: BadgeLevel } {
     if (t10y3m == null) return { label: "—", level: "neutral" };
-    if (t10y3m < 0.5) return { label: "bahaya", level: "danger" };
-    if (t10y3m < 1) return { label: "waspada", level: "warn" };
-    return { label: "aman", level: "safe" };
+    if (t10y3m < 0.5) return { label: "danger", level: "danger" };
+    if (t10y3m < 1) return { label: "caution", level: "warn" };
+    return { label: "safe", level: "safe" };
   }
 
   const isLoading = fredStatus === "loading" || capeStatus === "loading";
@@ -273,8 +273,8 @@ export default function Home() {
           </h1>
           <p style={{ fontSize: 13, color: "var(--text2)" }}>
             {lastRefresh
-              ? `Diperbarui ${lastRefresh.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}`
-              : "Memuat data..."}
+              ? `Updated ${lastRefresh.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}`
+              : "Loading data..."}
           </p>
         </div>
         <button
@@ -332,7 +332,7 @@ export default function Home() {
               marginBottom: 6,
             }}
           >
-            Skor
+            Score
           </div>
           {isLoading ? (
             <Skeleton />
@@ -412,7 +412,7 @@ export default function Home() {
           <div
             style={{ fontSize: 13, color: "var(--red-text)", padding: "8px 0" }}
           >
-            Gagal memuat data FRED
+            Failed to load FRED data
           </div>
         )}
         {fredStatus === "ok" && (
@@ -421,7 +421,7 @@ export default function Home() {
               label="A1 · Spread T10Y-3M"
               value={t10y3m != null ? `${t10y3m.toFixed(2)}` : "—"}
               badge={t10y3mBadge()}
-              sub={`Data per ${fmtDate(fred?.t10y3m.date ?? null)} · Aman jika > 0.5`}
+              sub={`Data as of ${fmtDate(fred?.t10y3m.date ?? null)} · Safe if > 0.5`}
             />
             <div
               style={{
@@ -433,12 +433,12 @@ export default function Home() {
             >
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 13, color: "var(--text2)" }}>
-                  A2 · Sudah 18 bulan sejak inversi selesai?
+                  A2 · Has it been 18 months since the inversion ended?
                 </div>
                 <div
                   style={{ fontSize: 11, color: "var(--text3)", marginTop: 2 }}
                 >
-                  Inversi Des 2024 → aman setelah Jun 2026
+                  Inversion ended Dec 2024 → safe after Jun 2026
                 </div>
               </div>
               <div
@@ -450,7 +450,7 @@ export default function Home() {
                 }}
               >
                 <Badge
-                  label={a2passed ? "aman" : "belum"}
+                  label={a2passed ? "safe" : "not yet"}
                   level={a2passed ? "safe" : "warn"}
                 />
               </div>
@@ -470,34 +470,34 @@ export default function Home() {
           <div
             style={{ fontSize: 13, color: "var(--red-text)", padding: "8px 0" }}
           >
-            Gagal memuat data FRED
+            Failed to load FRED data
           </div>
         )}
         {fredStatus === "ok" && (
           <>
             <Row
-              label="B1 · Velocity (perubahan 6 bulan)"
+              label="B1 · Velocity (6-month change)"
               value={hyVel != null ? `${hyVel.toFixed(0)} bps` : "—"}
               badge={
                 hyVel == null
                   ? { label: "—", level: "neutral" }
                   : hyVel > 150
-                    ? { label: "bahaya", level: "danger" }
-                    : { label: "aman", level: "safe" }
+                    ? { label: "danger", level: "danger" }
+                    : { label: "safe", level: "safe" }
               }
-              sub={`${hyOasVal?.toFixed(0) ?? "—"} bps sekarang vs ${fred?.hyOas.sixMonthAgo?.toFixed(0) ?? "—"} bps 6 bln lalu · Bahaya jika > 150 bps`}
+              sub={`${hyOasVal?.toFixed(0) ?? "—"} bps now vs ${fred?.hyOas.sixMonthAgo?.toFixed(0) ?? "—"} bps 6 months ago · Danger if > 150 bps`}
             />
             <Row
-              label="B2 · Level HY OAS saat ini"
+              label="B2 · Current HY OAS level"
               value={hyOasVal != null ? `${hyOasVal.toFixed(0)} bps` : "—"}
               badge={
                 hyOasVal == null
                   ? { label: "—", level: "neutral" }
                   : hyOasVal > 550
-                    ? { label: "bahaya", level: "danger" }
-                    : { label: "aman", level: "safe" }
+                    ? { label: "danger", level: "danger" }
+                    : { label: "safe", level: "safe" }
               }
-              sub={`Data per ${fmtDate(fred?.hyOas.date ?? null)} · Bahaya jika > 550 bps`}
+              sub={`Data as of ${fmtDate(fred?.hyOas.date ?? null)} · Danger if > 550 bps`}
             />
           </>
         )}
@@ -514,7 +514,7 @@ export default function Home() {
           <div
             style={{ fontSize: 13, color: "var(--red-text)", padding: "8px 0" }}
           >
-            Gagal memuat data CAPE
+            Failed to load CAPE data
           </div>
         )}
         {capeStatus === "ok" && (
@@ -525,10 +525,10 @@ export default function Home() {
               capeVal == null
                 ? { label: "—", level: "neutral" }
                 : capeVal > 35
-                  ? { label: "bahaya", level: "danger" }
-                  : { label: "aman", level: "safe" }
+                  ? { label: "danger", level: "danger" }
+                  : { label: "safe", level: "safe" }
             }
-            sub={`Data per ${cape?.date ?? "—"} · Bahaya jika > 35 · Peak Dotcom: 44.19`}
+            sub={`Data as of ${cape?.date ?? "—"} · Danger if > 35 · Dotcom peak: 44.19`}
           />
         )}
       </Section>
@@ -543,7 +543,7 @@ export default function Home() {
           lineHeight: 1.8,
         }}
       >
-        <p>Data: FRED (Federal Reserve) · Shiller CAPE (multpl.com)</p>
+        <p>Data sources: FRED (Federal Reserve) · Shiller CAPE (multpl.com)</p>
       </div>
     </main>
   );
